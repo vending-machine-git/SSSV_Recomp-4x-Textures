@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    if: github.event_name == 'push' || github.repository == github.event.pull_request.head.repo.full_name
+    if: github.repository == 'Cellenseres/SSSV_Recomp' && (github.event_name == 'push' || github.repository == github.event.pull_request.head.repo.full_name)
     uses: ./.github/workflows/validate.yml
     secrets:
       PRIVATE_CONTENT_TOKEN: ${{ secrets.PRIVATE_CONTENT_TOKEN }}

@@ -1,9 +1,103 @@
-# Space Station Silicon Valley: Recompiled
+# Space Station Silicon Valley: Recompiled - 4x Textures
+
+A **texture-only fork** of [Cellenseres/SSSV_Recomp](https://github.com/Cellenseres/SSSV_Recomp).
+It supplies an optional **4x AI-upscaled texture pack** for the original recompilation.
+**No gameplay, executable, renderer, audio, models, or game-code changes are introduced by this fork.**
+Use the upstream game with this pack; no different executable is needed.
+
+## Download and install
+
+1. Install [the upstream recompilation](https://github.com/Cellenseres/SSSV_Recomp/releases/tag/v0.2.0)
+   and supply your own supported **US 1.0 ROM**. Tested with Windows v0.2.0.
+2. Download **[SSSV_4x_AI_Textures.rtz](https://github.com/vending-machine-git/SSSV_Recomp-4x-Textures/releases/download/4x-textures-v1.0.0/SSSV_4x_AI_Textures.rtz)**
+   from this fork's [texture release](https://github.com/vending-machine-git/SSSV_Recomp-4x-Textures/releases/tag/4x-textures-v1.0.0).
+   Approximately **157 MiB**. Do not extract or rename the `.rtz`.
+3. Close the game, then copy the file into the game's **`mods`** directory:
+   - Portable: `mods` beside the game executable.
+   - Windows: `%LOCALAPPDATA%\SSSVRecompiled\mods`.
+   - Linux: `~/.config/SSSVRecompiled/mods`.
+   - macOS: `~/Library/Application Support/SSSVRecompiled/mods`.
+4. Enable **Silicon Valley 4x AI Textures** in the launcher's **Mods** menu.
+   Avoid enabling another pack that replaces the same textures simultaneously.
+5. Disable this mod to return to native textures. Saves and the ROM are unchanged.
+
+Only the Windows portable configuration has been exercised locally. Other platforms need
+an upstream build with compatible RT64 texture-pack support and have not been runtime-tested here.
+The release contains replacement textures, **not a ROM, model weights, or a game executable**.
+
+### Optional integrity verification
+
+The release includes `SHA256SUMS.txt`. [The manifest](texture-pack/manifest.json) records
+the archive size, SHA-256, mapping count, and image count. From a checkout, with Python 3.11+:
+
+```sh
+python -m pip install -r texture-pack/requirements.txt
+python texture-pack/verify.py /path/to/SSSV_4x_AI_Textures.rtz
+```
+
+The verifier checks SHA-256, every archive entry's CRC, metadata, all replacement bindings,
+and BC7 DDS mip chains. It never changes your installation. RT64 uses Zstandard ZIP entries,
+which ordinary ZIP tools may not open; install the `.rtz` directly rather than unpacking it.
+
+## Screenshot comparisons
+
+These are **actual in-game captures**, not generated mockups or offline texture previews.
+They show **Smashing Start** with RT64 replacements disabled and enabled in the same session.
+The camera/animation moved slightly between captures; these are not pixel-aligned A/B frames.
+No sharpening, recoloring, or retouching was applied. Open an image to inspect it at full size.
+
+| Native textures | 4x upscaled textures |
+| --- | --- |
+| ![Native Smashing Start](docs/screenshots/smashing-start-native.png) | ![4x Smashing Start](docs/screenshots/smashing-start-4x.png) |
+| ![Native HUD crop](docs/screenshots/hud-native.png) | ![4x HUD crop](docs/screenshots/hud-4x.png) |
+
+The second row is an **unscaled, identical-coordinate HUD crop** from the full screenshots.
+See [capture provenance and coordinates](texture-pack/verification.json).
+Comparison captures are from November 13, 2026; the same pack was smoke-tested again in
+Smashing Start on November 19, 2026, with settings and saves restored afterward.
+
+## What's included
+
+- **35,601 RT64 v5 replacement mappings** and **35,433 BC7 DDS images** with complete mip chains.
+- Built from **4,268 4x source PNGs**, with **3,261 distinct source paths** bound to native
+  textures; mappings include palette variants and atlas subrectangles.
+- Upscaled terrain, artwork, fonts, HUD, and effects where verified bindings exist.
+- RT64 low-mip cache and streaming configuration, preserved transparency, separate color/mask
+  textures, and intensity-format handling.
+
+This is **not a claim of 100% coverage**. Runtime-generated water, framebuffers, unmatched data,
+and unseen dynamically modified palettes can remain native. Four-times dimensions do not mean
+four-times screen resolution or new geometry. No unrelated mods are bundled.
+
+## Processing and credits
+
+Stylized textures use a 50:50 blend of **UniScale Balanced / Restore** by **kim2091**
+(model license: **CC-BY-NC-SA-4.0**). Indexed inputs use **DitherDeleterV3 Smooth** by
+**mutin-choler** (**WTFPL**). Pre-rendered artwork uses **SGI** by **chrisnonyminus**
+(**GPL-3.0-only**). Alpha was processed separately, with binary-alpha preservation,
+transparent RGB filling, 16-pixel inference padding, and regenerated mip levels.
+
+These are model authors' stated licenses, not a claim to ownership of the original game
+artwork or a blanket license for this pack. Game artwork belongs to its respective rights
+holders. No model weights or ROM are distributed. This is an unofficial fan project,
+not an official release or endorsement. Do not assume commercial-use rights.
+
+The fork publishes the finished pack, validation tooling, and screenshot evidence, **not**
+the original ROM, extracted source assets, model installations, or full local build workspace.
+The manifest identifies the exact artifact. Thanks to all upstream recompilation,
+decompilation, N64Recomp, and RT64 contributors.
+
+The original port documentation follows; its feature lists describe upstream capabilities,
+not additional changes made by this texture fork.
+
+---
+
+## Upstream port documentation
 Space Station Silicon Valley: Recompiled is a project that uses [N64: Recompiled](https://github.com/N64Recomp/N64Recomp) to **statically recompile** Space Station Silicon Valley into a native port with many new features, enhancements, and extensive mod support. This project uses [RT64](https://github.com/rt64/rt64) as the rendering engine to provide graphical enhancements.
 
-### Check out the latest release in this repository's Releases section.
+### For the original executable, use the upstream project's Releases section.
 
-### **This repository and its releases do not contain game assets. The original game is required to build or run this project.**
+### **The original game is required to build or run the port. This fork's texture release contains replacement artwork, but no ROM or executable.**
 
 ## Table of Contents
 * [System Requirements](#system-requirements)
@@ -92,7 +186,7 @@ Yes, if you place a file named `portable.txt` in the same folder as the executab
 * Overlays such as MSI Afterburner and other software such as Wallpaper Engine can cause performance issues with this project that prevent the game from rendering correctly. Disabling such software is recommended.
 
 ## Building
-Building is not required to play this project, as prebuilt binaries (which do not contain game assets) can be found in the Releases section. Instructions on how to build this project can be found in the [BUILDING.md](BUILDING.md) file.
+Building is not required to use the texture pack: use the executable from [upstream releases](https://github.com/Cellenseres/SSSV_Recomp/releases). This fork's releases provide the texture pack only. Upstream's build workflow requires private content and is not run in this fork; game code is unchanged.
 
 ## Libraries Used and Projects Referenced
 * [N64Recomp](https://github.com/N64Recomp/N64Recomp) for statically recompiling the game's code to run natively

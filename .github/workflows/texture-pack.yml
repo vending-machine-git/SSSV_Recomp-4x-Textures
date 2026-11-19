@@ -1,0 +1,35 @@
+name: Verify texture pack
+
+on:
+  push:
+    paths:
+      - texture-pack/**
+      - docs/screenshots/**
+      - README.md
+      - .github/workflows/texture-pack.yml
+  pull_request:
+    paths:
+      - texture-pack/**
+      - docs/screenshots/**
+      - README.md
+      - .github/workflows/texture-pack.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r texture-pack/requirements.txt
+      - name: Download published texture pack
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release download 4x-textures-v1.0.0 --repo vending-machine-git/SSSV_Recomp-4x-Textures --pattern SSSV_4x_AI_Textures.rtz --dir "$RUNNER_TEMP"
+      - name: Verify archive and all replacement textures
+        run: python texture-pack/verify.py "$RUNNER_TEMP/SSSV_4x_AI_Textures.rtz"

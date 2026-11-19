@@ -1,0 +1,38 @@
+{
+  "capture_date": "2026-11-13",
+  "capture_source": "Existing local RT64 native/replacement toggle test",
+  "level": "Smashing Start",
+  "platform": "Windows",
+  "game_version": "v0.2.0",
+  "native": "docs/screenshots/smashing-start-native.png",
+  "upscaled": "docs/screenshots/smashing-start-4x.png",
+  "original_capture_dimensions": [3456, 1408],
+  "hud_crop_box_xyxy": [260, 1080, 1260, 1300],
+  "hud_crop_rescaled": false,
+  "pixel_aligned_full_frames": false,
+  "retouching": false,
+  "historical_checks": {
+    "native_and_replacement_toggle_test": true,
+    "runtime_hash_captures_verified": 2307,
+    "graphics_settings_restored": true,
+    "saves_restored": true,
+    "game_executable_matches_release": true,
+    "rom_sha1_unchanged": true
+  },
+  "publication_smoke_test": {
+    "date": "2026-11-19",
+    "platform": "Windows, AMD Radeon RX 7900 XTX",
+    "launcher_recognizes_pack": true,
+    "mod_enabled": true,
+    "level_loaded": "Smashing Start",
+    "upscaled_terrain_and_hud_observed": true,
+    "evidence": "docs/screenshots/validation-4x.png",
+    "all_archive_entries_crc_verified": true,
+    "all_bindings_and_bc7_mip_chains_verified": true,
+    "rejects_bad_sha_truncation_and_incomplete_mips": true,
+    "executable_matches_upstream_v020_zip": true,
+    "installed_rom_matches_original": true,
+    "settings_and_saves_restored_byte_for_byte": true
+  },
+  "limitations": "Historical checks are carried forward from the local verification report; publication smoke testing is a new single-level test, not an all-level playthrough. Dynamic palettes, generated textures and framebuffers may remain native."
+}
